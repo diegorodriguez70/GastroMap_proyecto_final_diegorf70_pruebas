@@ -31,5 +31,22 @@ public class CuponController {
 		return salida;
 
 	}
+	@GetMapping("/cupones/{idCupon}")
+	public ModelAndView getCuponById(@PathVariable int idCupon) {
 
+		ModelAndView salida = new ModelAndView("cupones/cupon");
+		Optional<Cupon> cuponOptional = cuponService.getCuponOptionalById(idCupon);
+		salida.addObject("cupon", cuponOptional.get());
+		return salida;
+
+	}
+	@GetMapping("/cupones/delete/{idCupon}")
+	public ModelAndView deleteCupon(@PathVariable int idCupon) {
+
+		cuponService.deleteCuponById(idCupon);
+		ModelAndView salida = new ModelAndView("redirect:/cupones");
+
+		return salida;
+
+	}
 }
