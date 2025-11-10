@@ -58,5 +58,31 @@ public class CuponController {
 		return salida;
 
 	}
+
+	@PostMapping("/cupones/saveCupon")
+	public String saveCupon(@Valid @ModelAttribute Cupon cupon, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "cupones/cuponForm";
+		}
+		cuponService.saveCupon(cupon);
+		return "redirect:/cupones";
+	}
+
+	@GetMapping("/cupones/updateCupon/{idCupon}")
+	public ModelAndView updateCupon(@PathVariable int idCupon) {
+		ModelAndView salida = new ModelAndView("cupones/cuponForm");
+
+		Optional<Cupon> cuponOptional = cuponRepository.findById(idCupon);
+
+		if (cuponOptional.isPresent()) {
+
+			salida.addObject("cupon", cuponOptional.get());
+		} else {
+			salida.setViewName("redirect:/cupones");
+		}
+
+		return salida;
+	}
 	
 }
