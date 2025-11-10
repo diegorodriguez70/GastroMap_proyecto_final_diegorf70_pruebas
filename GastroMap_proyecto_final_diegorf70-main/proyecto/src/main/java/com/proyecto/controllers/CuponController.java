@@ -49,4 +49,14 @@ public class CuponController {
 		return salida;
 
 	}
+
+	@GetMapping("/cupones/add")
+	public ModelAndView addCupon() {
+
+		ModelAndView salida = new ModelAndView("cupones/cuponForm");
+		salida.addObject("cupon", new Cupon());
+		return salida;
+
+	}
+	
 }
