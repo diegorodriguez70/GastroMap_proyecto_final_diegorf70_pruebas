@@ -4,5 +4,38 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CuponService {
+@Autowired
+	CuponRepository cuponRepository;
+	
+	public Optional<Cupon> getCuponOptionalById(int idCupon){
+		
+		Optional<Cupon> cuponOptional = cuponRepository.findById(idCupon);
+		if(cuponOptional.isPresent()) {
+			return cuponOptional;
+		}
+		//lanzar una excepcion
+		return null;
+	}
 
+	public void deleteCuponById(int idCupon) {
+		try {
+			cuponRepository.deleteById(idCupon);
+		}catch(Exception e) {
+			System.out.println("no existe el cupon que quieres borrar");
+		}
+		
+	}
+	public void saveCupon (Cupon cupon) {
+		
+		cuponRepository.save(cupon);
+	}
+	
+	/*public void updateCuponById(int idCupon) {
+		
+		Optional<Cupon> cupon = cuponRepository.findById(idCupon);
+		if(cupon.isPresent()) {
+			
+			
+		}
+	}*/
 }
